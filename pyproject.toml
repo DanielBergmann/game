@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "game"
+# Don't change version here. See Makefile
+version = "0.0.0"
+description = "Game"
+authors = ["me"]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pytest = "^7.4.3"
