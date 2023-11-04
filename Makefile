@@ -29,7 +29,6 @@ clean:
 install: clean
 	$(PIP_INSTALL) poetry
 	$(POETRY) install
-	$(POETRY) run $(MANAGE_PY) collectstatic --noinput
 
 test:
 	$(POETRY) run pytest

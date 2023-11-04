@@ -7,8 +7,6 @@ class Thing:
         self.weight = weight
         self.name = name
 
-    def __mul__(self, other):
-        return [self for _ in range(other)]
 
 
 def calculate_weight(things: list[Thing]):
