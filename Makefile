@@ -2,7 +2,7 @@
 		test hooks
 
 # Project constants
-PROJECT = parrot
+PROJECT = game
 POETRY = poetry
 PYTEST = pytest
 PYTHON = python
