@@ -1,8 +1,7 @@
-import curses
-
 from models.location import Object, Location
 from models.map import Map
 from models.person import Person
+import getch
 
 # Initialize objects
 print("Initializing objects...")
@@ -26,7 +25,7 @@ kitchen.add_entrance("south", living_room)
 
 # Create a 3x3 map
 print("Creating a 3x3 map...")
-house_map = Map(3, 3)
+house_map = Map(7, 7)
 
 # Set locations on the map
 print("Setting locations on the map...")
@@ -49,48 +48,40 @@ john.update_knowledge(house_map)
 print("\nMap from John's perspective:")
 john.print_known_map(house_map)
 
-# Function to handle movement using arrow keys
-def main(stdscr):
-    # Clear screen
-    stdscr.clear()
+# Function to handle movement using input commands without pressing Enter
+def handle_movement():
+    print("Use W/A/S/D keys to move. Press 'q' to quit.")
     while True:
         # Print the map from John's perspective
-        stdscr.addstr(0, 0, "Map from John's perspective:\n")
+        print("\nMap from John's perspective:")
         john.print_known_map(house_map)
-        stdscr.addstr(len(house_map.grid) + 2, 0, "Use arrow keys to move. Press 'q' to quit.")
 
-        # Refresh the screen
-        stdscr.refresh()
-
-        # Get user input
-        key = stdscr.getch()
+        # Get user input without needing Enter
+        key = getch.getch().lower()
         print(f"Key pressed: {key}")  # Debugging: Log key pressed
 
-        # Move John based on the arrow key pressed
-        if key == curses.KEY_UP:
-            if john.row > 0:
-                print("Moving John up...")
-                john.move(john.row - 1, john.col)
-        elif key == curses.KEY_DOWN:
-            if john.row < len(house_map.grid) - 1:
-                print("Moving John down...")
-                john.move(john.row + 1, john.col)
-        elif key == curses.KEY_LEFT:
-            if john.col > 0:
-                print("Moving John left...")
-                john.move(john.row, john.col - 1)
-        elif key == curses.KEY_RIGHT:
-            if john.col < len(house_map.grid[0]) - 1:
-                print("Moving John right...")
-                john.move(john.row, john.col + 1)
-        elif key == ord('q'):
+        # Move John based on the key pressed
+        if key == 'w' and john.row > 0:
+            print("Moving John up...")
+            john.move(john.row - 1, john.col)
+        elif key == 's' and john.row < len(house_map.grid) - 1:
+            print("Moving John down...")
+            john.move(john.row + 1, john.col)
+        elif key == 'a' and john.col > 0:
+            print("Moving John left...")
+            john.move(john.row, john.col - 1)
+        elif key == 'd' and john.col < len(house_map.grid[0]) - 1:
+            print("Moving John right...")
+            john.move(john.row, john.col + 1)
+        elif key == 'q':
             print("Quitting...")
             break
+        else:
+            print("Invalid input. Use W/A/S/D to move or Q to quit.")
 
         # Update John's knowledge of the map
         print("Updating John's knowledge of the map after movement...")
         john.update_knowledge(house_map)
 
-# Run the curses main function
-print("Starting curses wrapper for movement...")
-curses.wrapper(main)
+# Run the input-based movement handler
+handle_movement()

@@ -34,8 +34,7 @@ class Person:
         map_obj (Map): The map to explore.
         """
         for r in range(max(0, self.row - self.view_range), min(len(map_obj.grid), self.row + self.view_range + 1)):
-            for c in range(max(0, self.col - self.view_range),
-                           min(len(map_obj.grid[0]), self.col + self.view_range + 1)):
+            for c in range(max(0, self.col - self.view_range), min(len(map_obj.grid[0]), self.col + self.view_range + 1)):
                 location = map_obj.get_location(r, c)
                 if location:
                     self.known_map[(r, c)] = location
@@ -52,7 +51,9 @@ class Person:
         for r in range(len(map_obj.grid)):
             row_representation = []
             for c in range(len(map_obj.grid[0])):
-                if (r, c) in self.known_map:
+                if r == self.row and c == self.col:
+                    row_representation.append('P')
+                elif (r, c) in self.known_map:
                     if abs(self.row - r) <= self.view_range and abs(self.col - c) <= self.view_range:
                         # Visible locations
                         if self.known_map[(r, c)] == 'empty':
