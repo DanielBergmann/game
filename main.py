@@ -63,16 +63,16 @@ def handle_movement():
         # Move John based on the key pressed
         if key == 'w' and john.row > 0:
             print("Moving John up...")
-            john.move(john.row - 1, john.col)
+            john.move(house_map, john.row - 1, john.col)
         elif key == 's' and john.row < len(house_map.grid) - 1:
             print("Moving John down...")
-            john.move(john.row + 1, john.col)
+            john.move(house_map, john.row + 1, john.col)
         elif key == 'a' and john.col > 0:
             print("Moving John left...")
-            john.move(john.row, john.col - 1)
+            john.move(house_map, john.row, john.col - 1)
         elif key == 'd' and john.col < len(house_map.grid[0]) - 1:
             print("Moving John right...")
-            john.move(john.row, john.col + 1)
+            john.move(house_map, john.row, john.col + 1)
         elif key == 'q':
             print("Quitting...")
             break
